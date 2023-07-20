@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
+import 'package:mukuru_app/projects/customWidgets/call_to_action.dart';
 import 'package:mukuru_app/projects/customWidgets/user_details.dart';
 
 class Home extends StatelessWidget {
@@ -10,7 +11,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [UserDetails()],
+        children: [UserDetails(), CallToAction()],
       )),
       bottomNavigationBar: BottomBar(
         activePage: 'home',
