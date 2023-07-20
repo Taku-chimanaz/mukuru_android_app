@@ -1,10 +1,19 @@
 # mukuru_app
 
-A new Flutter project.
+A mobile application for mukuru that l created while learning how to use flutter for mobile development.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Clone the the repo:
+```
+git clone [path of report]
+```
+2. Install the project dependencies
+```
+flutter pub get
+```
+3. Run the project
+
 
 A few resources to get you started if this is your first Flutter project:
 
@@ -14,4 +23,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-# mukuru_android_app
+
