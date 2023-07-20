@@ -24,7 +24,8 @@ class _BottomBarState extends State<BottomBar> {
               splashColor: Colors.grey,
               icon: Icon(
                 Icons.home,
-                color: widget.activePage == 'home' ? MyAppColors.color : null,
+                color:
+                    widget.activePage == 'home' ? MyAppColors.themeColor : null,
               )),
           IconButton(
               onPressed: () {
@@ -33,22 +34,24 @@ class _BottomBarState extends State<BottomBar> {
               icon: Icon(
                 Icons.account_balance_wallet,
                 color: widget.activePage == 'uncollected'
-                    ? MyAppColors.color
+                    ? MyAppColors.themeColor
                     : null,
               )),
           IconButton(
               onPressed: () => context.push('/history'),
               icon: Icon(
                 Icons.history,
-                color:
-                    widget.activePage == 'history' ? MyAppColors.color : null,
+                color: widget.activePage == 'history'
+                    ? MyAppColors.themeColor
+                    : null,
               )),
           IconButton(
               onPressed: () => context.push('/settings'),
               icon: Icon(
                 Icons.settings,
-                color:
-                    widget.activePage == 'settings' ? MyAppColors.color : null,
+                color: widget.activePage == 'settings'
+                    ? MyAppColors.themeColor
+                    : null,
               ))
         ],
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
