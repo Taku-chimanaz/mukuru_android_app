@@ -10,7 +10,7 @@ class UserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(0),
-      color: MyAppColors.color,
+      color: MyAppColors.themeColor,
       shadowColor: Colors.grey,
       child: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -71,7 +71,7 @@ class UserName extends StatelessWidget {
             Container(
               child: Icon(
                 Icons.person,
-                color: MyAppColors.color,
+                color: MyAppColors.themeColor,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
