@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
 import 'package:mukuru_app/projects/customWidgets/call_to_action.dart';
+import 'package:mukuru_app/projects/customWidgets/sent_voucher.dart';
 import 'package:mukuru_app/projects/customWidgets/user_details.dart';
 
 class Home extends StatelessWidget {
@@ -11,7 +12,19 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [UserDetails(), CallToAction()],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          UserDetails(),
+          CallToAction(),
+          Container(
+            margin: EdgeInsets.fromLTRB(17.0, 15.0, 0, 0),
+            child: Text(
+              'Sent Vouchers',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0),
+            ),
+          ),
+          Expanded(child: SentVouchers())
+        ],
       )),
       bottomNavigationBar: BottomBar(
         activePage: 'home',
