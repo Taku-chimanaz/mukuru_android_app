@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:mukuru_app/projects/colors.dart";
 
 class UserDetails extends StatelessWidget {
   const UserDetails({
@@ -10,7 +9,7 @@ class UserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(0),
-      color: MyAppColors.themeColor,
+      color: Colors.white,
       shadowColor: Colors.grey,
       child: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -39,14 +38,14 @@ class UserFinances extends StatelessWidget {
       children: [
         Icon(
           Icons.account_balance_wallet,
-          color: Colors.white,
+          color: Colors.grey,
         ),
         Container(
           margin: EdgeInsets.fromLTRB(6.0, 0, 0, 0),
           child: Text(
             '\$40',
             style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 fontSize: 12.0),
           ),
@@ -71,11 +70,11 @@ class UserName extends StatelessWidget {
             Container(
               child: Icon(
                 Icons.person,
-                color: MyAppColors.themeColor,
+                color: Colors.white,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Colors.white,
+                color: Colors.grey,
               ),
             ),
             Container(
@@ -84,7 +83,7 @@ class UserName extends StatelessWidget {
                 'Welcome Takudzwa',
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontStyle: FontStyle.italic,
                     fontSize: 12.0),
                 textAlign: TextAlign.left,
