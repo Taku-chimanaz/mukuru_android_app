@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () => context.go('/home'));
+    Future.delayed(Duration(seconds: 2), () => context.go('/load-data'));
   }
 
   @override
