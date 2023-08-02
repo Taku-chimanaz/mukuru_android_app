@@ -39,6 +39,9 @@ class _LoadDataState extends State<LoadData> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Loading data,please wait...'),
+                SizedBox(
+                  height: 20,
+                ),
                 CircularProgressIndicator()
               ],
             ));

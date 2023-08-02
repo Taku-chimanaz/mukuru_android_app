@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
 import 'package:mukuru_app/projects/customWidgets/call_to_action.dart';
-import 'package:mukuru_app/projects/customWidgets/sent_voucher.dart';
+//import 'package:mukuru_app/projects/customWidgets/sent_voucher.dart';
 import 'package:mukuru_app/projects/customWidgets/user_details.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';

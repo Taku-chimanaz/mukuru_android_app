@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
+import 'package:mukuru_app/projects/customWidgets/send_money_dialog.dart';
 
 class CallToAction extends StatelessWidget {
   const CallToAction({super.key});
+
+  //
+  void _openSendMoneyBottomSheet(BuildContext ctx) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25.0),
+          ),
+        ),
+        context: ctx,
+        builder: (_) {
+          return SendMoneyDialog();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +46,26 @@ class CallToAction extends StatelessWidget {
                   CallToActionButton(
                     buttonText: 'Send Money',
                     buttonIcon: Icon(Icons.send_to_mobile),
+                    parentWidgetContext: context,
+                    openBottomSheetFunction: _openSendMoneyBottomSheet,
                   ),
                   CallToActionButton(
                     buttonText: 'Add Recipient',
                     buttonIcon: Icon(Icons.person_4),
+                    parentWidgetContext: context,
+                    openBottomSheetFunction: _openSendMoneyBottomSheet,
                   ),
                   CallToActionButton(
                     buttonText: 'Make Payment',
                     buttonIcon: Icon(Icons.payment),
+                    parentWidgetContext: context,
+                    openBottomSheetFunction: _openSendMoneyBottomSheet,
                   ),
                   CallToActionButton(
                     buttonText: 'Send Groceries',
                     buttonIcon: Icon(Icons.shopping_bag),
+                    parentWidgetContext: context,
+                    openBottomSheetFunction: _openSendMoneyBottomSheet,
                   )
                 ],
               ),
@@ -57,17 +80,21 @@ class CallToAction extends StatelessWidget {
 class CallToActionButton extends StatelessWidget {
   final String buttonText;
   final Icon buttonIcon;
+  final BuildContext parentWidgetContext;
+  final Function openBottomSheetFunction;
 
   const CallToActionButton({
     super.key,
     required this.buttonText,
     required this.buttonIcon,
+    required this.parentWidgetContext,
+    required this.openBottomSheetFunction,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () => {},
+        onPressed: () => openBottomSheetFunction(parentWidgetContext),
         child: Column(children: [
           Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, 5.0),
