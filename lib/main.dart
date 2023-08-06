@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/projects/routes/app_route_config.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => VouchersProvider())
+        ChangeNotifierProvider(create: (context) => VouchersProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider())
       ],
       child: MaterialApp.router(
         routerConfig: MyAppRouter().router,
