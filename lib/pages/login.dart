@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/snippets/SignUpSnippets.dart';
 import 'package:mukuru_app/projects/snippets/loginSnippets.dart';

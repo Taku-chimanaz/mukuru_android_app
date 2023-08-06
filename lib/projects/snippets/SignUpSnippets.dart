@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class SignupSnippets {
   static validatePassword(String password, String comparedToPassword) {
     print('password ran');
