@@ -55,6 +55,7 @@ class SendMoneyFormSnippets {
 
   static sendMoney(
       {required Map<String, dynamic> user,
+      required Function updateUserInfo,
       required Function setLoading,
       required String recipientEmail,
       required String amount,
@@ -77,6 +78,7 @@ class SendMoneyFormSnippets {
             Uri.parse(MyAppConstants.apiUrl + '/api/vouchers/create-voucher'),
             headers: MyAppConstants.headers,
             body: jsonDetails);
+        final json = jsonDecode(responseJson.body) as Map<String, dynamic>;
 
         if (responseJson.statusCode == 200) {
           setLoading(false);
@@ -85,9 +87,10 @@ class SendMoneyFormSnippets {
               type: QuickAlertType.success,
               text: 'Transaction Completed Successfully!',
               confirmBtnColor: MyAppColors.themeColor);
+          updateUserInfo(userUpdatedInfo: json['user']);
         } else {
           setLoading(false);
-          final json = jsonDecode(responseJson.body) as Map<String, dynamic>;
+
           QuickAlert.show(
               context: context,
               type: QuickAlertType.error,

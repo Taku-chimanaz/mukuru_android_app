@@ -1,9 +1,19 @@
 import "package:flutter/material.dart";
+import 'package:mukuru_app/projects/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
-class UserDetails extends StatelessWidget {
-  const UserDetails({
+class UserDetails extends StatefulWidget {
+  UserDetails({
     super.key,
   });
+
+  @override
+  State<UserDetails> createState() => _UserDetailsState();
+}
+
+class _UserDetailsState extends State<UserDetails> {
+  late final UserProvider UserProviderBindingInstance =
+      Provider.of<UserProvider>(context, listen: true);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +26,17 @@ class UserDetails extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: [UserName(), SizedBox(height: 15), UserFinances()],
+              children: [
+                UserName(
+                  firstname: UserProviderBindingInstance.user!['user']
+                      ['firstname'],
+                  surname: UserProviderBindingInstance.user!['user']['surname'],
+                ),
+                SizedBox(height: 15),
+                UserFinances(
+                  balance: UserProviderBindingInstance.user!['user']['balance'],
+                )
+              ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             )
           ],
@@ -26,11 +46,18 @@ class UserDetails extends StatelessWidget {
   }
 }
 
-class UserFinances extends StatelessWidget {
+class UserFinances extends StatefulWidget {
+  final double balance;
   const UserFinances({
     super.key,
+    required this.balance,
   });
 
+  @override
+  State<UserFinances> createState() => _UserFinancesState();
+}
+
+class _UserFinancesState extends State<UserFinances> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -43,7 +70,7 @@ class UserFinances extends StatelessWidget {
         Container(
           margin: EdgeInsets.fromLTRB(6.0, 0, 0, 0),
           child: Text(
-            '\$40',
+            '\$${widget.balance}',
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
@@ -56,8 +83,12 @@ class UserFinances extends StatelessWidget {
 }
 
 class UserName extends StatelessWidget {
+  final String firstname;
+  final String surname;
   const UserName({
     super.key,
+    required this.firstname,
+    required this.surname,
   });
 
   @override
@@ -80,7 +111,7 @@ class UserName extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(
-                'Welcome Takudzwa',
+                'Welcome ${firstname[0]} $surname',
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Colors.black,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +16,15 @@ class _LoadDataState extends State<LoadData> {
   late final BuildContext widgetContext;
   late final VouchersProvider bindingInstance =
       Provider.of<VouchersProvider>(context, listen: false);
+  late final UserProvider userBindingInstance =
+      Provider.of<UserProvider>(context, listen: false);
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (bindingInstance.vouchers == null) {
-        bindingInstance.setVouchers(context);
+        bindingInstance.setVouchers(
+            context, userBindingInstance.user!['user']['_id']);
       } else {
         context.go('/home');
       }
