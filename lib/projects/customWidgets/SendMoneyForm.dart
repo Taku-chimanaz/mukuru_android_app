@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/checkFullnameErrorText.dart';
 import 'package:mukuru_app/projects/snippets/SendMoneyFormSnippets.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class SendMoneyForm extends StatefulWidget {
   const SendMoneyForm({super.key});
@@ -14,12 +16,21 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final recipientTextFieldController = TextEditingController();
   final amountTextFieldController = TextEditingController();
+  late final UserProvider UserProviderBindingInstance =
+      Provider.of<UserProvider>(context, listen: false);
 
   bool isNotFullname = false;
+  bool showIsLoading = false;
 
   updateIsNotFullname() {
     setState(() {
       isNotFullname = !isNotFullname;
+    });
+  }
+
+  setLoading(bool loadingState) {
+    setState(() {
+      showIsLoading = loadingState;
     });
   }
 
@@ -31,24 +42,29 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (isNotFullname) CheckFullnameErrorText(),
+            if (showIsLoading)
+              Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Processing your transaction....please wait',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w500),
+                  )),
             TextFormField(
               controller: recipientTextFieldController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
-                  labelText: 'Recipient',
-                  hintText: 'Enter email  of recipient',
-                  hintStyle: TextStyle(fontSize: 12.0),
-                  border: OutlineInputBorder(),
-                  labelStyle: TextStyle(fontSize: 12.0),
-                  suffixIcon: IconButton(
-                    color: MyAppColors.themeColor,
-                    onPressed: () => SendMoneyFormSnippets.checkIfFullName(
-                        recipientTextFieldController.text, updateIsNotFullname),
-                    icon: Icon(Icons.search),
-                  )),
+                contentPadding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
+                labelText: 'Recipient',
+                hintText: 'Enter email  of recipient',
+                hintStyle: TextStyle(fontSize: 12.0),
+                border: OutlineInputBorder(),
+                labelStyle: TextStyle(fontSize: 12.0),
+              ),
               validator: (value) => SendMoneyFormSnippets.validateFormRecipient(
-                  value, 'recipient'),
+                  value, UserProviderBindingInstance.user!['user']['email']),
             ),
             SizedBox(
               height: 20,
@@ -73,6 +89,8 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                       if (_formKey.currentState!.validate())
                         {
                           SendMoneyFormSnippets.sendMoney(
+                              user: UserProviderBindingInstance.user!['user'],
+                              setLoading: setLoading,
                               recipientEmail: recipientTextFieldController.text,
                               amount: amountTextFieldController.text,
                               context: context)

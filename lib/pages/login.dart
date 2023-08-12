@@ -21,10 +21,17 @@ class _LoginState extends State<Login> {
       Provider.of<UserProvider>(context, listen: false);
   late final Function loginUser = UserProviderBindingInstance.loginUser;
   bool showPassword = false;
+  bool isLoading = false;
 
   void toggleViewPassword() {
     setState(() {
       showPassword = !showPassword;
+    });
+  }
+
+  setLoading(bool loadingState) {
+    setState(() {
+      isLoading = loadingState;
     });
   }
 
@@ -48,6 +55,16 @@ class _LoginState extends State<Login> {
                     key: _formKey,
                     child: Column(
                       children: [
+                        if (isLoading)
+                          Container(
+                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Authenticating user....please wait',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w500),
+                              )),
                         TextFormField(
                           validator: (value) => SignupSnippets.validateEmail(
                               emailController.text),
@@ -97,8 +114,11 @@ class _LoginState extends State<Login> {
                           onPressed: () => {
                             if (_formKey.currentState!.validate())
                               {
-                                loginUser(emailController.text,
-                                    passwordController.text, context)
+                                loginUser(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context,
+                                    setLoading)
                               }
                           },
                           child: Text('Login'),

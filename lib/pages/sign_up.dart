@@ -26,6 +26,7 @@ class _SignupState extends State<Signup> {
 
   bool showPassword = false;
   bool showConfirmPassword = false;
+  bool isLoading = false;
 
   void toggleViewPassword() {
     setState(() {
@@ -36,6 +37,12 @@ class _SignupState extends State<Signup> {
   void toggleViewConfirmPassword() {
     setState(() {
       showConfirmPassword = !showConfirmPassword;
+    });
+  }
+
+  setLoading(bool loadingState) {
+    setState(() {
+      isLoading = loadingState;
     });
   }
 
@@ -56,6 +63,16 @@ class _SignupState extends State<Signup> {
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 40.0),
+                if (isLoading)
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Signing user up....please wait',
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w500),
+                      )),
                 Form(
                     key: _formKey,
                     child: Column(
@@ -189,7 +206,8 @@ class _SignupState extends State<Signup> {
                                     passwordController.text,
                                     firstnameController.text,
                                     surnameController.text,
-                                    context)
+                                    context,
+                                    setLoading)
                               }
                           },
                           child: Text('Signup'),

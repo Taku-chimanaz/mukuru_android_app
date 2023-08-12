@@ -21,6 +21,8 @@ class _LoadDataState extends State<LoadData> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (bindingInstance.vouchers == null) {
         bindingInstance.setVouchers(context);
+      } else {
+        context.go('/home');
       }
     });
 

@@ -9,29 +9,40 @@ import 'package:quickalert/quickalert.dart';
 class UserProvider extends ChangeNotifier {
   Map<String, dynamic>? user = null;
 
-  loginUser(String email, String password, BuildContext context) async {
+  loginUser(String email, String password, BuildContext context,
+      Function setLoading) async {
     final payload = jsonEncode({"email": email, "password": password});
 
-    final responseJson = await http.post(
-        Uri.parse(MyAppConstants.apiUrl + '/api/users/login-user'),
-        headers: MyAppConstants.headers,
-        body: payload);
-    final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
+    setLoading(true);
 
-    if (responseJson.statusCode == 200) {
-      user = decodedJson;
-      notifyListeners();
-      context.go('/load-data');
-    } else {
+    try {
+      final responseJson = await http.post(
+          Uri.parse(MyAppConstants.apiUrl + '/api/users/login-user'),
+          headers: MyAppConstants.headers,
+          body: payload);
+      final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
+
+      if (responseJson.statusCode == 200) {
+        user = decodedJson;
+        notifyListeners();
+        context.go('/load-data');
+      } else {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: decodedJson['message']);
+      }
+    } catch (e) {
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,
-          text: decodedJson['message']);
+          text: 'An unexpected error ocurred,please try again');
     }
   }
 
   createUser(String email, String password, String firstname, String surname,
-      BuildContext context) async {
+      BuildContext context, Function setLoading) async {
     final payload = jsonEncode({
       "email": email,
       "password": password,
@@ -39,26 +50,35 @@ class UserProvider extends ChangeNotifier {
       "surname": surname
     });
 
-    final responseJson = await http.post(
-        Uri.parse(MyAppConstants.apiUrl + '/api/users/create-user'),
-        headers: MyAppConstants.headers,
-        body: payload);
-    final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
+    try {
+      setLoading(true);
+      final responseJson = await http.post(
+          Uri.parse(MyAppConstants.apiUrl + '/api/users/create-user'),
+          headers: MyAppConstants.headers,
+          body: payload);
+      final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
 
-    if (responseJson.statusCode == 200) {
-      QuickAlert.show(
-          context: context,
-          type: QuickAlertType.success,
-          text: 'User created successfully',
-          showCancelBtn: false);
-      Future.delayed(Duration(seconds: 2), () => context.go('/login'));
-    } else {
-      print(decodedJson);
+      if (responseJson.statusCode == 200) {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.success,
+            text: 'User created successfully',
+            showCancelBtn: false);
+        Future.delayed(Duration(seconds: 2), () => context.go('/login'));
+      } else {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: decodedJson['message'],
+            showCancelBtn: false);
+      }
+    } catch (e) {
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,
-          text: decodedJson['message'],
-          showCancelBtn: false);
+          text: 'An unexpected error ocurred,please try again');
     }
   }
 }
