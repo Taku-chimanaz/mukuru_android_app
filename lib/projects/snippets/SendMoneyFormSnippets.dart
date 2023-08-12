@@ -6,9 +6,15 @@ import 'package:mukuru_app/projects/colors.dart';
 import 'package:quickalert/quickalert.dart';
 
 class SendMoneyFormSnippets {
-  static validateFormRecipient(String? value, String typeOfInput) {
+  // form validators
+
+  static validateFormRecipient(String? value, String senderEmail) {
     if (value == null || value.isEmpty) {
       return 'Please enter some text';
+    }
+
+    if (value.toLowerCase() == senderEmail.toLowerCase()) {
+      return 'You cannot send money to yourself';
     }
 
     return null;
@@ -19,8 +25,16 @@ class SendMoneyFormSnippets {
       return 'Please enter some text';
     }
 
-    if (value == '0' || value == '0.0' || value == '0.00') {
+    if (value == '0' ||
+        value == '0.0' ||
+        value == '0.00' ||
+        value == '0,0' ||
+        value == '0,00') {
       return 'Amount cannot be zero';
+    }
+
+    if (value.contains('-')) {
+      return 'You cannot send a negative amount';
     }
 
     return null;
@@ -37,35 +51,79 @@ class SendMoneyFormSnippets {
     }
   }
 
+  // functions
+
   static sendMoney(
-      {required String recipientEmail,
+      {required Map<String, dynamic> user,
+      required Function setLoading,
+      required String recipientEmail,
       required String amount,
       required BuildContext context}) async {
     final Map<String, String> details = {
       "recipient": recipientEmail,
       "amount": amount,
-      "sender": '3899486645asdf3445',
+      "sender": user['_id'],
       "voucherType": 'cash'
     };
     final jsonDetails = jsonEncode(details);
-    final responseJson = await http.post(
-        Uri.parse(MyAppConstants.apiUrl + '/api/vouchers/create-voucher'),
-        headers: MyAppConstants.headers,
-        body: jsonDetails);
+    final bool sufficientFunds = _haveSufficientFunds(
+        balance: user['balance'], transactionAmount: amount, context: context);
 
-    if (responseJson.statusCode == 200) {
-      QuickAlert.show(
-          context: context,
-          type: QuickAlertType.success,
-          text: 'Transaction Completed Successfully!',
-          confirmBtnColor: MyAppColors.themeColor);
+    if (sufficientFunds) {
+      setLoading(true);
+
+      try {
+        final responseJson = await http.post(
+            Uri.parse(MyAppConstants.apiUrl + '/api/vouchers/create-voucher'),
+            headers: MyAppConstants.headers,
+            body: jsonDetails);
+
+        if (responseJson.statusCode == 200) {
+          setLoading(false);
+          QuickAlert.show(
+              context: context,
+              type: QuickAlertType.success,
+              text: 'Transaction Completed Successfully!',
+              confirmBtnColor: MyAppColors.themeColor);
+        } else {
+          setLoading(false);
+          final json = jsonDecode(responseJson.body) as Map<String, dynamic>;
+          QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              text: json['message'],
+              confirmBtnColor: MyAppColors.themeColor);
+        }
+      } catch (e) {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: 'An unexpected Error occured,try again.');
+      }
     } else {
-      final json = jsonDecode(responseJson.body) as Map<String, dynamic>;
+      return;
+    }
+  }
+
+  // check for sufficient funds to do a transaction
+
+  static bool _haveSufficientFunds(
+      {required double balance,
+      required String transactionAmount,
+      required BuildContext context}) {
+    double transactionDouble = transactionAmount.contains(',')
+        ? double.parse(transactionAmount.replaceFirst(',', '.'))
+        : double.parse(transactionAmount);
+
+    if (balance < transactionDouble) {
       QuickAlert.show(
           context: context,
-          type: QuickAlertType.error,
-          text: json['message'],
-          confirmBtnColor: MyAppColors.themeColor);
+          type: QuickAlertType.warning,
+          text: 'You have insufficient funds to complete the transaction');
+      return false;
     }
+
+    return true;
   }
 }

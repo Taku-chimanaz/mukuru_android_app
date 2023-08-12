@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,10 +11,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late final UserProvider bindingInstance =
+      Provider.of<UserProvider>(context, listen: false);
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () => context.go('/load-data'));
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (bindingInstance.user == null) {
+        Future.delayed(Duration(seconds: 2), () => context.go('/login'));
+      } else {
+        Future.delayed(Duration(seconds: 2), () => context.go('/load-data'));
+      }
+    });
   }
 
   @override
