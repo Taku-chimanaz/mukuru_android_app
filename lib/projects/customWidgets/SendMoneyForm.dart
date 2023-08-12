@@ -3,6 +3,7 @@ import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/checkFullnameErrorText.dart';
 import 'package:mukuru_app/projects/snippets/SendMoneyFormSnippets.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
+import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
 
 class SendMoneyForm extends StatefulWidget {
@@ -18,6 +19,8 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
   final amountTextFieldController = TextEditingController();
   late final UserProvider UserProviderBindingInstance =
       Provider.of<UserProvider>(context, listen: false);
+  late final VouchersProvider VoucherProviderBindingInstance =
+      Provider.of<VouchersProvider>(context, listen: false);
 
   bool isNotFullname = false;
   bool showIsLoading = false;
@@ -90,6 +93,8 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                         {
                           SendMoneyFormSnippets.sendMoney(
                               user: UserProviderBindingInstance.user!['user'],
+                              updateUserInfo:
+                                  UserProviderBindingInstance.updateUserInfo,
                               setLoading: setLoading,
                               recipientEmail: recipientTextFieldController.text,
                               amount: amountTextFieldController.text,

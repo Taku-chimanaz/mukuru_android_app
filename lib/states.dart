@@ -8,9 +8,9 @@ class VouchersProvider extends ChangeNotifier {
   Map<String, dynamic>? vouchers = null;
   bool error = false;
 
-  void setVouchers(BuildContext context) async {
-    http.Response fetchedVouchers = await http
-        .get(Uri.parse(MyAppConstants.apiUrl + '/api/vouchers/fetch-vouchers'));
+  void setVouchers(BuildContext context, String userID) async {
+    http.Response fetchedVouchers = await http.get(Uri.parse(
+        MyAppConstants.apiUrl + '/api/vouchers/fetch-vouchers/$userID'));
 
     if (fetchedVouchers.statusCode == 200) {
       final json = jsonDecode(fetchedVouchers.body) as Map<String, dynamic>;

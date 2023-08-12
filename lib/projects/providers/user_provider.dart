@@ -81,4 +81,9 @@ class UserProvider extends ChangeNotifier {
           text: 'An unexpected error ocurred,please try again');
     }
   }
+
+  updateUserInfo({required Map<String, dynamic> userUpdatedInfo}) {
+    user!['user'] = userUpdatedInfo;
+    notifyListeners();
+  }
 }
