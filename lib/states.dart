@@ -34,7 +34,7 @@ class VouchersProvider extends ChangeNotifier {
           Uri.parse(MyAppConstants.apiUrl +
               '/api/vouchers/revoke-voucher/$voucherID'),
           headers: MyAppConstants.headers,
-          body: jsonEncode({'userID': userID}));
+          body: jsonEncode({'user ID': userID}));
       final responseJson =
           jsonDecode(revokeVoucherReq.body) as Map<String, dynamic>;
 
