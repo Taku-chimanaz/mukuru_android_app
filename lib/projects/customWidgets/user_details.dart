@@ -13,7 +13,7 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   late final UserProvider UserProviderBindingInstance =
-      Provider.of<UserProvider>(context, listen: true);
+      Provider.of<UserProvider>(context);
 
   @override
   Widget build(BuildContext context) {
