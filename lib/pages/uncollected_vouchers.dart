@@ -19,13 +19,16 @@ class UncollectedVouchers extends StatelessWidget {
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
             ),
           ),
-          Expanded(
+          /* Expanded(
               child: ListView.builder(
             itemCount: 200,
             itemBuilder: (BuildContext context, index) {
-              return Voucher(VoucherStatusWidget: CollectVoucher());
+              return Voucher(
+                VoucherStatusWidget: CollectVoucher(),
+                voucher: {},
+              );
             },
-          ))
+          )) */
         ],
       )),
       bottomNavigationBar: BottomBar(activePage: 'uncollected'),

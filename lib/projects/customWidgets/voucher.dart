@@ -3,8 +3,9 @@ import 'package:mukuru_app/projects/colors.dart';
 
 class Voucher extends StatelessWidget {
   final Widget VoucherStatusWidget;
-
-  const Voucher({super.key, required this.VoucherStatusWidget});
+  final Map<String, dynamic> voucher;
+  const Voucher(
+      {super.key, required this.VoucherStatusWidget, required this.voucher});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +19,13 @@ class Voucher extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Icon(
-                  Icons.shopping_bag,
-                  color: MyAppColors.themeColor,
+                  voucher['voucherType'] == 'cash'
+                      ? Icons.monetization_on
+                      : Icons.shopping_bag,
+                  color: MyAppColors.lighterThemeColor,
                 ),
                 Text(
-                  '19/07/23',
+                  '${voucher['createdAt']}'.split('T')[0],
                   style: TextStyle(fontWeight: FontWeight.w600),
                 )
               ],
@@ -36,7 +39,7 @@ class Voucher extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '\$30',
+                        '\$${voucher['amount']}',
                         style: TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.w500),
                       ),
@@ -44,7 +47,7 @@ class Voucher extends StatelessWidget {
                         height: 3.0,
                       ),
                       Text(
-                        'Jane Doe',
+                        '${voucher['recipientObject']['firstname']} ${voucher['recipientObject']['surname']}',
                         style: TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.w500),
                       )
