@@ -55,6 +55,7 @@ class SendMoneyFormSnippets {
 
   static sendMoney(
       {required Map<String, dynamic> user,
+      required Function resetTheFormFields,
       required Function addVoucherToList,
       required Function updateUserInfo,
       required Function setLoading,
@@ -83,6 +84,7 @@ class SendMoneyFormSnippets {
 
         if (responseJson.statusCode == 200) {
           setLoading(false);
+          resetTheFormFields();
           QuickAlert.show(
               context: context,
               type: QuickAlertType.success,

@@ -37,6 +37,13 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
     });
   }
 
+  resetTheFormFields() {
+    setState(() {
+      recipientTextFieldController.text = "";
+      amountTextFieldController.text = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -93,6 +100,7 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                         {
                           SendMoneyFormSnippets.sendMoney(
                               user: UserProviderBindingInstance.user!['user'],
+                              resetTheFormFields: resetTheFormFields,
                               addVoucherToList: VoucherProviderBindingInstance
                                   .addVoucherToList,
                               updateUserInfo:
