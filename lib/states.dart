@@ -66,4 +66,9 @@ class VouchersProvider extends ChangeNotifier {
     vouchers!['vouchers'] = newVouchers;
     notifyListeners();
   }
+
+  void addVoucherToList({required Map<String, dynamic> voucher}) {
+    vouchers!['vouchers'].add(voucher);
+    notifyListeners();
+  }
 }

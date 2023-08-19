@@ -34,6 +34,8 @@ class _SentVouchersState extends State<SentVouchers> {
               VoucherStatusWidget: RevokeVoucher(voucherID: voucher['_id']),
               voucher: voucher,
             ))
+        .toList()
+        .reversed
         .toList();
   }
 
