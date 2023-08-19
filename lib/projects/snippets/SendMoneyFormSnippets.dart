@@ -55,6 +55,7 @@ class SendMoneyFormSnippets {
 
   static sendMoney(
       {required Map<String, dynamic> user,
+      required Function addVoucherToList,
       required Function updateUserInfo,
       required Function setLoading,
       required String recipientEmail,
@@ -88,6 +89,8 @@ class SendMoneyFormSnippets {
               text: 'Transaction Completed Successfully!',
               confirmBtnColor: MyAppColors.themeColor);
           updateUserInfo(userUpdatedInfo: json['user']);
+          print(json['voucher']);
+          addVoucherToList(voucher: json['voucher']);
         } else {
           setLoading(false);
 

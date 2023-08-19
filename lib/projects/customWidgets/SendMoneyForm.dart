@@ -93,6 +93,8 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                         {
                           SendMoneyFormSnippets.sendMoney(
                               user: UserProviderBindingInstance.user!['user'],
+                              addVoucherToList: VoucherProviderBindingInstance
+                                  .addVoucherToList,
                               updateUserInfo:
                                   UserProviderBindingInstance.updateUserInfo,
                               setLoading: setLoading,
