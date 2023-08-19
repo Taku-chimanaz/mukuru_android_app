@@ -28,23 +28,26 @@ class VouchersProvider extends ChangeNotifier {
   void revokeVoucher(
       {required String voucherID,
       required BuildContext context,
-      required userID}) async {
+      required userID,
+      required Function updateUserInfo}) async {
     try {
       final revokeVoucherReq = await http.put(
           Uri.parse(MyAppConstants.apiUrl +
               '/api/vouchers/revoke-voucher/$voucherID'),
           headers: MyAppConstants.headers,
-          body: jsonEncode({'user ID': userID}));
+          body: jsonEncode({'userID': userID}));
       final responseJson =
           jsonDecode(revokeVoucherReq.body) as Map<String, dynamic>;
 
       if (revokeVoucherReq.statusCode == 200) {
-        vouchers!['vouchers'] = responseJson['vouchers'];
+        if (responseJson['user'] != null) {
+          updateUserInfo(userUpdatedInfo: responseJson['user']);
+        }
+        updateVouchers(newVouchers: responseJson['vouchers']);
         QuickAlert.show(
             context: context,
             type: QuickAlertType.success,
             text: 'Voucher revoked');
-        notifyListeners();
       } else {
         QuickAlert.show(
             context: context,
@@ -52,11 +55,15 @@ class VouchersProvider extends ChangeNotifier {
             text: 'Internal server error occured,try again');
       }
     } catch (e) {
-      print(e);
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,
           text: 'An unexpected error occured,try again');
     }
+  }
+
+  void updateVouchers({required List newVouchers}) {
+    vouchers!['vouchers'] = newVouchers;
+    notifyListeners();
   }
 }

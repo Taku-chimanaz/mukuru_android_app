@@ -34,6 +34,8 @@ class UserProvider extends ChangeNotifier {
             text: decodedJson['message']);
       }
     } catch (e) {
+      setLoading(false);
+      print(e);
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,
