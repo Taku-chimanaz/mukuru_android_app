@@ -23,7 +23,8 @@ class _RevokeVoucherState extends State<RevokeVoucher> {
         voucherProvider.revokeVoucher(
             voucherID: widget.voucherID,
             context: context,
-            userID: userProvider.user!['user']['_id'])
+            userID: userProvider.user!['user']['_id'],
+            updateUserInfo: userProvider.updateUserInfo),
       },
       child: Row(
         children: [

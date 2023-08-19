@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/customWidgets/revoke_voucher.dart';
 import 'package:mukuru_app/projects/customWidgets/voucher.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
 
@@ -12,22 +13,40 @@ class SentVouchers extends StatefulWidget {
 }
 
 class _SentVouchersState extends State<SentVouchers> {
+  late final UserProvider userProvider =
+      Provider.of<UserProvider>(context, listen: false);
   late final VouchersProvider vouchersProvider =
       Provider.of<VouchersProvider>(context, listen: true);
-  late final vouchers = vouchersProvider.vouchers!['vouchers']
-      .map((voucher) => Voucher(
-            VoucherStatusWidget: RevokeVoucher(voucherID: voucher['_id']),
-            voucher: voucher,
-          ))
-      .toList();
+  late List activeSentVouchers;
+  late List vouchers;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    activeSentVouchers = vouchersProvider.vouchers!['vouchers']
+        .where((voucher) =>
+            voucher['sender'] == userProvider.user!['user']['_id'] &&
+            voucher['isCancelled'] == false &&
+            voucher['isCollected'] == false)
+        .toList();
+    vouchers = activeSentVouchers
+        .map((voucher) => Voucher(
+              VoucherStatusWidget: RevokeVoucher(voucherID: voucher['_id']),
+              voucher: voucher,
+            ))
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(vouchers.runtimeType);
-    return ListView.builder(
-        itemCount: vouchers.length,
-        itemBuilder: (BuildContext context, int index) {
-          return vouchers[index];
-        });
+    if (vouchers.length > 0) {
+      return ListView.builder(
+          itemCount: vouchers.length,
+          itemBuilder: (BuildContext context, int index) {
+            return vouchers[index];
+          });
+    } else {
+      return Text('No active sent vouchers available');
+    }
   }
 }
