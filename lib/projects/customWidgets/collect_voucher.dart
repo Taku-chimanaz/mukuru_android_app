@@ -2,8 +2,10 @@ import "package:flutter/material.dart";
 import "package:mukuru_app/projects/colors.dart";
 
 class CollectVoucher extends StatelessWidget {
+  final String voucherID;
   const CollectVoucher({
     super.key,
+    required this.voucherID,
   });
 
   @override

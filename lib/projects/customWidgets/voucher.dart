@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
+import 'package:mukuru_app/projects/customWidgets/cash_in.dart';
 
 class Voucher extends StatelessWidget {
   final Widget VoucherStatusWidget;
+  final bool isUncollectedVoucher;
   final Map<String, dynamic> voucher;
   const Voucher(
-      {super.key, required this.VoucherStatusWidget, required this.voucher});
+      {super.key,
+      required this.VoucherStatusWidget,
+      required this.voucher,
+      required this.isUncollectedVoucher});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,17 @@ class Voucher extends StatelessWidget {
                       )
                     ],
                   ),
-                  VoucherStatusWidget
+                  Column(
+                    children: [
+                      VoucherStatusWidget,
+                      if (isUncollectedVoucher)
+                        SizedBox(
+                          height: 10,
+                        ),
+                      if (isUncollectedVoucher)
+                        CashInVoucher(voucherID: voucher['_id'])
+                    ],
+                  )
                 ],
               ),
             ),

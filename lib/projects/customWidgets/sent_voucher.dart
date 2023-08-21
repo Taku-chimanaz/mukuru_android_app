@@ -26,12 +26,14 @@ class _SentVouchersState extends State<SentVouchers> {
     activeSentVouchers = vouchersProvider.vouchers!['vouchers']
         .where((voucher) =>
             voucher['sender'] == userProvider.user!['user']['_id'] &&
+            voucher['isCashedIn'] == false &&
             voucher['isCancelled'] == false &&
             voucher['isCollected'] == false)
         .toList();
     vouchers = activeSentVouchers
         .map((voucher) => Voucher(
               VoucherStatusWidget: RevokeVoucher(voucherID: voucher['_id']),
+              isUncollectedVoucher: false,
               voucher: voucher,
             ))
         .toList()
