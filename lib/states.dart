@@ -62,6 +62,49 @@ class VouchersProvider extends ChangeNotifier {
     }
   }
 
+  void cashInVoucher(
+      {required String userID,
+      required String voucherID,
+      required BuildContext context,
+      required Function updateUserInfo,
+      required Function setIsCashingIn}) async {
+    try {
+      setIsCashingIn(true);
+      final cashInReq = await http.put(
+          Uri.parse(MyAppConstants.apiUrl +
+              '/api/vouchers/cash-in-voucher/${voucherID}'),
+          headers: MyAppConstants.headers,
+          body: jsonEncode({'userID': userID}));
+      final decodedJson = json.decode(cashInReq.body) as Map<String, dynamic>;
+
+      if (cashInReq.statusCode == 200) {
+        setIsCashingIn(false);
+        updateUserInfo(userUpdatedInfo: decodedJson['user']);
+        final List filteredVouchers = vouchers!['vouchers']
+            .where((voucher) => voucher['_id'] != voucherID)
+            .toList();
+        updateVouchers(newVouchers: filteredVouchers);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.success,
+            text: 'Voucher Cashed-In');
+      } else {
+        setIsCashingIn(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: 'An internal error occured,try again');
+      }
+    } catch (e) {
+      print(e);
+      setIsCashingIn(false);
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          text: 'An unexpected error occured,try again');
+    }
+  }
+
   void updateVouchers({required List newVouchers}) {
     vouchers!['vouchers'] = newVouchers;
     notifyListeners();
