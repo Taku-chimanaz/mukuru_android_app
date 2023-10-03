@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/select_time_range_header.dart';
-import 'package:quickalert/quickalert.dart';
 
 class StatementRangeSelector extends StatefulWidget {
   const StatementRangeSelector({super.key});
