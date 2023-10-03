@@ -50,7 +50,11 @@ class _CashInVoucherState extends State<CashInVoucher> {
           Text(!isCashingIn ? 'Cash-In' : 'Cashing-In')
         ],
       ),
-      style: ElevatedButton.styleFrom(backgroundColor: MyAppColors.themeColor),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: MyAppColors.themeColor,
+          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
     );
   }
 }

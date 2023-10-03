@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
@@ -51,7 +50,7 @@ class _SignupState extends State<Signup> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: MyAppColors.whiteSmokeColor,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -60,7 +59,17 @@ class _SignupState extends State<Signup> {
               children: [
                 Text(
                   'Create An Account',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  'Enjoy convience from anywhere',
+                  style: TextStyle(
+                      color: MyAppColors.borderColor,
+                      fontWeight: FontWeight.w200,
+                      fontSize: 12),
                 ),
                 SizedBox(height: 40.0),
                 if (isLoading)
@@ -87,9 +96,17 @@ class _SignupState extends State<Signup> {
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                             labelStyle: TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: MyAppColors.lighterThemeColor,
+                            prefixIcon: Container(
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      right: BorderSide(
+                                          width: 1,
+                                          color: MyAppColors.borderColor))),
+                              child: Icon(
+                                Icons.person,
+                                color: MyAppColors.primaryColor,
+                              ),
                             ),
                           ),
                         ),
@@ -106,9 +123,17 @@ class _SignupState extends State<Signup> {
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                             labelStyle: TextStyle(fontSize: 12.0),
                             border: OutlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: MyAppColors.lighterThemeColor,
+                            prefixIcon: Container(
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      right: BorderSide(
+                                          width: 1,
+                                          color: MyAppColors.borderColor))),
+                              child: Icon(
+                                Icons.person,
+                                color: MyAppColors.primaryColor,
+                              ),
                             ),
                           ),
                         ),
@@ -118,8 +143,18 @@ class _SignupState extends State<Signup> {
                         TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.email,
-                                  color: MyAppColors.lighterThemeColor),
+                              prefixIcon: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: MyAppColors.borderColor))),
+                                child: Icon(
+                                  Icons.email,
+                                  color: MyAppColors.primaryColor,
+                                ),
+                              ),
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                               labelText: 'Email',
@@ -144,9 +179,17 @@ class _SignupState extends State<Signup> {
                               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                               labelStyle: TextStyle(fontSize: 12.0),
                               border: OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.security,
-                                color: MyAppColors.lighterThemeColor,
+                              prefixIcon: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: MyAppColors.borderColor))),
+                                child: Icon(
+                                  Icons.lock,
+                                  color: MyAppColors.primaryColor,
+                                ),
                               ),
                               suffixIcon: IconButton(
                                 icon: !showPassword
@@ -177,9 +220,17 @@ class _SignupState extends State<Signup> {
                               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                               labelStyle: TextStyle(fontSize: 12.0),
                               border: OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.security,
-                                color: MyAppColors.lighterThemeColor,
+                              prefixIcon: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: MyAppColors.borderColor))),
+                                child: Icon(
+                                  Icons.lock,
+                                  color: MyAppColors.primaryColor,
+                                ),
                               ),
                               suffixIcon: IconButton(
                                 icon: !showConfirmPassword
@@ -212,24 +263,31 @@ class _SignupState extends State<Signup> {
                           },
                           child: Text('Signup'),
                           style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
                               backgroundColor: MyAppColors.themeColor,
                               minimumSize: const Size.fromHeight(40)),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Already have an account?',
-                            ),
-                            TextButton(
-                                onPressed: () => {context.push('/login')},
-                                child: Text(
-                                  'Login',
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Row(
+                            children: [
+                              Text('Already have an account?',
                                   style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.black,
-                                  ),
-                                ))
-                          ],
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal)),
+                              TextButton(
+                                  onPressed: () => {context.push('/login')},
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 12,
+                                        color: MyAppColors.themeColor,
+                                        fontWeight: FontWeight.bold),
+                                  ))
+                            ],
+                          ),
                         )
                       ],
                     ))

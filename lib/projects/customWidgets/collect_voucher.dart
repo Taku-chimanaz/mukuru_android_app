@@ -18,10 +18,14 @@ class CollectVoucher extends StatelessWidget {
             Icons.account_balance_wallet,
             color: Colors.white,
           ),
-          Text('Collect')
+          Text('Collect', style: TextStyle(fontSize: 12))
         ],
       ),
-      style: ElevatedButton.styleFrom(backgroundColor: MyAppColors.themeColor),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: MyAppColors.themeColor,
+          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
     );
   }
 }

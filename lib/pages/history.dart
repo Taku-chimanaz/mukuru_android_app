@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
+import 'package:mukuru_app/projects/colors.dart';
+import 'package:mukuru_app/projects/customWidgets/statement_range_selector.dart';
 
 class History extends StatelessWidget {
   const History({super.key});
@@ -7,13 +9,16 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyAppColors.whiteSmokeColor,
       body: SafeArea(
-          child: Container(
-        child: Center(
-          child: Text('Profile'),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        SizedBox(
+          height: 25,
         ),
-      )),
-      bottomNavigationBar: BottomBar(activePage: 'history'),
+        StatementRangeSelector()
+      ])),
+      bottomNavigationBar: BottomBar(activePage: 'History'),
     );
   }
 }

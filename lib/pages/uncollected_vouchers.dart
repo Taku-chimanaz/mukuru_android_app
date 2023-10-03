@@ -66,7 +66,7 @@ class _UncollectedVouchersState extends State<UncollectedVouchers> {
               : Text('No active vouchers to be collected')
         ],
       )),
-      bottomNavigationBar: BottomBar(activePage: 'uncollected'),
+      bottomNavigationBar: BottomBar(activePage: 'Vouchers'),
     );
   }
 }

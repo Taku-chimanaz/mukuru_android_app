@@ -35,7 +35,11 @@ class _RevokeVoucherState extends State<RevokeVoucher> {
           Text('Revoke')
         ],
       ),
-      style: ElevatedButton.styleFrom(backgroundColor: MyAppColors.themeColor),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: MyAppColors.themeColor,
+          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
     );
   }
 }
