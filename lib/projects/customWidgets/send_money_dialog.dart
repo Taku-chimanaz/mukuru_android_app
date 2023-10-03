@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:mukuru_app/projects/customWidgets/SendMoneyForm.dart';
 import 'dart:async';
-import 'dart:ui' as ui;
 
 class SendMoneyDialog extends StatefulWidget {
   final Function updateHeightFactor;

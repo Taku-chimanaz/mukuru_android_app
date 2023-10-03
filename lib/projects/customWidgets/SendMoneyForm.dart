@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/checkFullnameErrorText.dart';
 import 'package:mukuru_app/projects/snippets/SendMoneyFormSnippets.dart';
@@ -42,6 +45,22 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
       recipientTextFieldController.text = "";
       amountTextFieldController.text = "";
     });
+  }
+
+  //Function that opens up qrcode scanner
+
+  Future<void> scanQR() async {
+    String qrCodeRes;
+
+    try {
+      qrCodeRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      qrCodeRes = 'Failed to get platform version';
+    }
+
+    if (!mounted) return;
+    print(qrCodeRes);
   }
 
   @override
@@ -121,7 +140,7 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
               height: 8,
             ),
             ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {scanQR()},
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 224, 223, 223),
                     shape: RoundedRectangleBorder(
