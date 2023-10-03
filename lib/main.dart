@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => UserProvider())
       ],
       child: MaterialApp.router(
+        theme: ThemeData(fontFamily: 'Roboto'),
         routerConfig: MyAppRouter().router,
         debugShowCheckedModeBanner: false,
       ),

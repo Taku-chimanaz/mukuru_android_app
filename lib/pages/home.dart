@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
+import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/call_to_action.dart';
 import 'package:mukuru_app/projects/customWidgets/sent_voucher.dart';
 import 'package:mukuru_app/projects/customWidgets/user_details.dart';
-import 'package:mukuru_app/states.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -12,6 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyAppColors.whiteSmokeColor,
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,14 +22,17 @@ class Home extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(17.0, 15.0, 0, 0),
             child: Text(
               'Sent Vouchers',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.0),
             ),
+          ),
+          SizedBox(
+            height: 5,
           ),
           Expanded(child: SentVouchers())
         ],
       )),
       bottomNavigationBar: BottomBar(
-        activePage: 'home',
+        activePage: 'Home',
       ),
     );
   }

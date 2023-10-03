@@ -23,16 +23,25 @@ class CallToAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(0),
-      color: MyAppColors.backgroundColor,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.zero,
+              topRight: Radius.zero,
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15))),
+      color: MyAppColors.primaryColor,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(18.0, 22.0, 18.0, 22.0),
+        padding: const EdgeInsets.fromLTRB(18.0, 22.0, 18.0, 30.0),
         child: Column(
           children: [
             Row(
               children: [
                 Text(
                   'What do you want to do today?',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.0,
+                      color: Colors.white),
                 ),
               ],
             ),

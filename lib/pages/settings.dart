@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        activePage: 'settings',
+        activePage: 'Profile',
       ),
     );
   }

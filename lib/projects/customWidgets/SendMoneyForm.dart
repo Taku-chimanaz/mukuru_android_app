@@ -114,7 +114,35 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                 child: Text('Send'),
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(40),
-                    backgroundColor: MyAppColors.themeColor))
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    backgroundColor: MyAppColors.themeColor)),
+            SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+                onPressed: () => {},
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 224, 223, 223),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    maximumSize: Size(150, 100)),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.qr_code_scanner,
+                      color: Colors.black,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Text(
+                        'Scan Code',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    )
+                  ],
+                ))
           ],
         ));
   }

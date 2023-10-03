@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,11 +19,12 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       margin: EdgeInsets.all(0),
-      color: Colors.white,
+      color: MyAppColors.primaryColor,
       shadowColor: Colors.grey,
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: const EdgeInsets.fromLTRB(18.0, 25.0, 18.0, 20.0),
         child: Column(
           children: [
             Row(
@@ -63,19 +65,30 @@ class _UserFinancesState extends State<UserFinances> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(
-          Icons.account_balance_wallet,
-          color: Colors.grey,
-        ),
-        Container(
-          margin: EdgeInsets.fromLTRB(6.0, 0, 0, 0),
-          child: Text(
-            '\$${widget.balance}',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 12.0),
+        ElevatedButton(
+          onPressed: () => {},
+          child: Row(
+            children: [
+              Icon(
+                Icons.wallet,
+                color: Colors.white,
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(6.0, 0, 0, 0),
+                child: Text(
+                  '\$${widget.balance}',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12.0),
+                ),
+              )
+            ],
           ),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: MyAppColors.themeColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30))),
         )
       ],
     );
@@ -99,23 +112,12 @@ class UserName extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.grey,
-              ),
-            ),
-            Container(
               margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(
                 'Welcome ${firstname[0]} $surname',
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
                     fontSize: 12.0),
                 textAlign: TextAlign.left,
               ),

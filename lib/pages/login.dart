@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: MyAppColors.whiteSmokeColor,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -47,10 +47,23 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Welcome Back',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w500),
+                  'Welcome back',
+                  style: TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                SizedBox(height: 40.0),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Text(
+                  'Login to continue using our services',
+                  style: TextStyle(
+                      color: MyAppColors.borderColor,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w200),
+                ),
+                SizedBox(height: 65.0),
                 Form(
                     key: _formKey,
                     child: Column(
@@ -70,8 +83,18 @@ class _LoginState extends State<Login> {
                               emailController.text),
                           controller: emailController,
                           decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.email,
-                                  color: MyAppColors.lighterThemeColor),
+                              prefixIcon: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: MyAppColors.borderColor))),
+                                child: Icon(
+                                  Icons.email,
+                                  color: MyAppColors.primaryColor,
+                                ),
+                              ),
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                               labelText: 'Email',
@@ -90,9 +113,17 @@ class _LoginState extends State<Login> {
                               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                               labelStyle: TextStyle(fontSize: 12.0),
                               border: OutlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.security,
-                                color: MyAppColors.lighterThemeColor,
+                              prefixIcon: Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: MyAppColors.borderColor))),
+                                child: Icon(
+                                  Icons.lock,
+                                  color: MyAppColors.primaryColor,
+                                ),
                               ),
                               suffixIcon: IconButton(
                                 icon: !showPassword
@@ -121,26 +152,42 @@ class _LoginState extends State<Login> {
                                     setLoading)
                               }
                           },
-                          child: Text('Login'),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: MyAppColors.themeColor,
+                              padding: EdgeInsets.all(15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                               minimumSize: const Size.fromHeight(40)),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Do not have an account?',
-                            ),
-                            TextButton(
-                                onPressed: () => {context.push('/signup')},
-                                child: Text(
-                                  'Signup',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.black,
-                                  ),
-                                ))
-                          ],
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 10.0, 0, 0),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Do not have an account?',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              Container(
+                                child: TextButton(
+                                    onPressed: () => {context.push('/signup')},
+                                    child: Text(
+                                      'Register',
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontSize: 12,
+                                          color: MyAppColors.themeColor,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ))
