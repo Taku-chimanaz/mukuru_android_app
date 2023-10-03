@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/checkFullnameErrorText.dart';
 import 'package:mukuru_app/projects/snippets/SendMoneyFormSnippets.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 
 class SendMoneyForm extends StatefulWidget {
   const SendMoneyForm({super.key});
@@ -42,6 +45,41 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
       recipientTextFieldController.text = "";
       amountTextFieldController.text = "";
     });
+  }
+
+  //Function that opens up qrcode scanner
+
+  Future<void> scanQR() async {
+    String qrCodeRes;
+
+    try {
+      qrCodeRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+    } on PlatformException {
+      qrCodeRes = 'Failed to get platform version';
+      return;
+    }
+
+    if (!mounted) return;
+
+    if (qrCodeRes.isEmpty || amountTextFieldController.text.isEmpty) {
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          text: amountTextFieldController.text.isEmpty
+              ? 'Please enter price before pressing scan code button'
+              : 'No email detected.Please ask your recepient to login again into their account');
+    } else {
+      SendMoneyFormSnippets.sendMoney(
+          user: UserProviderBindingInstance.user!['user'],
+          resetTheFormFields: resetTheFormFields,
+          addVoucherToList: VoucherProviderBindingInstance.addVoucherToList,
+          updateUserInfo: UserProviderBindingInstance.updateUserInfo,
+          setLoading: setLoading,
+          recipientEmail: qrCodeRes,
+          amount: amountTextFieldController.text,
+          context: context);
+    }
   }
 
   @override
@@ -121,7 +159,7 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
               height: 8,
             ),
             ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {scanQR()},
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 224, 223, 223),
                     shape: RoundedRectangleBorder(

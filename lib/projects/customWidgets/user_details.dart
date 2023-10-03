@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:mukuru_app/projects/colors.dart';
+import 'package:mukuru_app/projects/customWidgets/UserDetailsDialog.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -60,13 +61,31 @@ class UserFinances extends StatefulWidget {
 }
 
 class _UserFinancesState extends State<UserFinances> {
+  late final UserProvider UserProviderBindingInstance =
+      Provider.of<UserProvider>(context);
+
+  void _openUserDetailsBottomSheet(BuildContext ctx) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25.0),
+          ),
+        ),
+        context: ctx,
+        builder: (_) {
+          return UserDetailsDialog(
+              balance: widget.balance,
+              userEmail: UserProviderBindingInstance.user!['user']['email']);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
-          onPressed: () => {},
+          onPressed: () => {_openUserDetailsBottomSheet(context)},
           child: Row(
             children: [
               Icon(
