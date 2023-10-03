@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
-import 'package:mukuru_app/projects/providers/user_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class UserDetailsDialog extends StatefulWidget {
