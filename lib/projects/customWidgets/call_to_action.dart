@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/send_money_dialog.dart';
 
-class CallToAction extends StatelessWidget {
+class CallToAction extends StatefulWidget {
   const CallToAction({super.key});
+
+  @override
+  State<CallToAction> createState() => _CallToActionState();
+}
+
+class _CallToActionState extends State<CallToAction> {
+  double heightFactor = 0.45;
+
+  void updateHeightFactor() {
+    setState(() {
+      heightFactor = heightFactor == 0.45 ? 0.75 : 0.45;
+    });
+  }
 
   //
   void _openSendMoneyBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(25.0),
@@ -15,7 +29,10 @@ class CallToAction extends StatelessWidget {
         ),
         context: ctx,
         builder: (_) {
-          return SendMoneyDialog();
+          return FractionallySizedBox(
+            heightFactor: heightFactor,
+            child: SendMoneyDialog(updateHeightFactor: updateHeightFactor),
+          );
         });
   }
 
