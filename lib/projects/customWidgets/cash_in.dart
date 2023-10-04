@@ -52,7 +52,7 @@ class _CashInVoucherState extends State<CashInVoucher> {
       ),
       style: ElevatedButton.styleFrom(
           backgroundColor: MyAppColors.themeColor,
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          padding: EdgeInsets.fromLTRB(20, 9, 20, 9),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
     );
