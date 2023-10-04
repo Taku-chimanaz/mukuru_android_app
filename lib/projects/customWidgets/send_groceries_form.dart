@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/checkFullnameErrorText.dart';
 import 'package:mukuru_app/projects/snippets/SendMoneyFormSnippets.dart';
@@ -8,7 +6,6 @@ import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/projects/snippets/send_groceries_snippets.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
-import 'package:quickalert/quickalert.dart';
 
 class SendGroceriesForm extends StatefulWidget {
   const SendGroceriesForm({super.key});
