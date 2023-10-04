@@ -84,6 +84,83 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  updateUser(String id, String email, String phoneNumber, String firstname,
+      String surname, BuildContext context, Function setLoading) async {
+    final payload = jsonEncode({
+      "id": id,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "firstname": firstname,
+      "surname": surname
+    });
+
+    try {
+      setLoading(true);
+      final responseJson = await http.put(
+          Uri.parse(MyAppConstants.apiUrl + '/api/users/update-user'),
+          headers: MyAppConstants.headers,
+          body: payload);
+      final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
+
+      if (responseJson.statusCode == 200) {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.success,
+            text: 'User updated successfully',
+            showCancelBtn: false);
+        updateUserInfo(userUpdatedInfo: decodedJson['updatedUser']);
+      } else {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: decodedJson['message'],
+            showCancelBtn: false);
+      }
+    } catch (e) {
+      print(e);
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          text: 'An unexpected error ocurred,please try again');
+    }
+  }
+
+  deleteUser(String id, Function setLoading, BuildContext context) async {
+    try {
+      setLoading(true);
+      final responseJson = await http.delete(
+          Uri.parse(MyAppConstants.apiUrl + '/api/users/delete-user/$id'),
+          headers: MyAppConstants.headers);
+      final decodedJson = jsonDecode(responseJson.body) as Map<String, dynamic>;
+
+      if (responseJson.statusCode == 200) {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.success,
+            text: 'User deleted successfully',
+            showCancelBtn: false);
+        user = null;
+        GoRouter.of(context).go('/login');
+      } else {
+        setLoading(false);
+        QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            text: decodedJson['message'],
+            showCancelBtn: false);
+      }
+    } catch (e) {
+      print(e);
+      QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          text: 'An unexpected error ocurred,please try again');
+    }
+  }
+
   updateUserInfo({required Map<String, dynamic> userUpdatedInfo}) {
     user!['user'] = userUpdatedInfo;
     notifyListeners();

@@ -97,18 +97,6 @@ class _CallToActionState extends State<CallToAction> {
                     openBottomSheetFunction: _openSendMoneyBottomSheet,
                   ),
                   CallToActionButton(
-                    buttonText: 'Add Recipient',
-                    buttonIcon: Icon(Icons.person_4),
-                    parentWidgetContext: context,
-                    openBottomSheetFunction: _openSendMoneyBottomSheet,
-                  ),
-                  CallToActionButton(
-                    buttonText: 'Make Payment',
-                    buttonIcon: Icon(Icons.payment),
-                    parentWidgetContext: context,
-                    openBottomSheetFunction: _openSendMoneyBottomSheet,
-                  ),
-                  CallToActionButton(
                     buttonText: 'Send Groceries',
                     buttonIcon: Icon(Icons.shopping_bag),
                     parentWidgetContext: context,

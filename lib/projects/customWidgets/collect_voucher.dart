@@ -23,7 +23,7 @@ class CollectVoucher extends StatelessWidget {
       ),
       style: ElevatedButton.styleFrom(
           backgroundColor: MyAppColors.themeColor,
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
     );
