@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mukuru_app/projects/colors.dart';
+import 'package:mukuru_app/projects/customWidgets/send_groceries_dialog.dart';
 import 'package:mukuru_app/projects/customWidgets/send_money_dialog.dart';
 
 class CallToAction extends StatefulWidget {
@@ -18,7 +19,8 @@ class _CallToActionState extends State<CallToAction> {
     });
   }
 
-  //
+  // method to open the send money bottom sheet
+
   void _openSendMoneyBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -32,6 +34,25 @@ class _CallToActionState extends State<CallToAction> {
           return FractionallySizedBox(
             heightFactor: heightFactor,
             child: SendMoneyDialog(updateHeightFactor: updateHeightFactor),
+          );
+        });
+  }
+
+  // method to open the send groceries bottom sheet
+
+  void _openSendGroceriesBottomSheet(BuildContext ctx) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25.0),
+          ),
+        ),
+        context: ctx,
+        builder: (_) {
+          return FractionallySizedBox(
+            heightFactor: heightFactor,
+            child: SendGroceriesDialog(updateHeightFactor: updateHeightFactor),
           );
         });
   }
@@ -91,7 +112,7 @@ class _CallToActionState extends State<CallToAction> {
                     buttonText: 'Send Groceries',
                     buttonIcon: Icon(Icons.shopping_bag),
                     parentWidgetContext: context,
-                    openBottomSheetFunction: _openSendMoneyBottomSheet,
+                    openBottomSheetFunction: _openSendGroceriesBottomSheet,
                   )
                 ],
               ),
