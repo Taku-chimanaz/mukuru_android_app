@@ -23,16 +23,23 @@ class _UserDetailsDialogState extends State<UserDetailsDialog> {
           children: [
             Text(
               'Account Balance: \$${widget.balance}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             SizedBox(
               height: 20,
             ),
-            QrImageView(
-              data: widget.userEmail,
-              eyeStyle: QrEyeStyle(
-                  color: MyAppColors.primaryColor, eyeShape: QrEyeShape.square),
-              size: 200,
+            Container(
+              color: Colors.white,
+              child: QrImageView(
+                data: widget.userEmail,
+                eyeStyle: QrEyeStyle(
+                    color: MyAppColors.primaryColor,
+                    eyeShape: QrEyeShape.square),
+                size: 200,
+              ),
             )
           ],
         ));

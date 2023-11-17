@@ -43,7 +43,11 @@ class VouchersProvider extends ChangeNotifier {
         if (responseJson['user'] != null) {
           updateUserInfo(userUpdatedInfo: responseJson['user']);
         }
-        updateVouchers(newVouchers: responseJson['vouchers']);
+
+        final List filteredVouchers = vouchers!['vouchers']
+            .where((voucher) => voucher['_id'] != voucherID)
+            .toList();
+        updateVouchers(newVouchers: filteredVouchers);
         QuickAlert.show(
             context: context,
             type: QuickAlertType.success,
@@ -55,6 +59,7 @@ class VouchersProvider extends ChangeNotifier {
             text: 'Internal server error occured,try again');
       }
     } catch (e) {
+      print(e);
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,

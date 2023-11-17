@@ -66,9 +66,10 @@ class _UserFinancesState extends State<UserFinances> {
 
   void _openUserDetailsBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
+        backgroundColor: MyAppColors.primaryColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(25.0),
+            top: Radius.circular(20.0),
           ),
         ),
         context: ctx,

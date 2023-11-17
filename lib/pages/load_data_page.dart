@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/BottomAppBar.dart';
+import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/states.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class _LoadDataState extends State<LoadData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyAppColors.primaryColor,
       body: Consumer<VouchersProvider>(
         builder: (context, vouchersProviderModel, child) {
           if (vouchersProviderModel.vouchers == null) {
@@ -44,7 +46,10 @@ class _LoadDataState extends State<LoadData> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Loading data,please wait...'),
+                Text(
+                  'Loading data,please wait...',
+                  style: TextStyle(color: Colors.white),
+                ),
                 SizedBox(
                   height: 20,
                 ),

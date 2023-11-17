@@ -102,7 +102,8 @@ class Voucher extends StatelessWidget {
                       SizedBox(
                         width: 15,
                       ),
-                    if (isUncollectedVoucher)
+                    if (isUncollectedVoucher &&
+                        voucher['voucherType'] == 'cash')
                       CashInVoucher(voucherID: voucher['_id'])
                   ],
                 )

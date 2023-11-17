@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/customWidgets/navigation_button.dart';
+import 'package:mukuru_app/projects/providers/user_provider.dart';
+import 'package:mukuru_app/states.dart';
+import 'package:provider/provider.dart';
 
 class BottomBar extends StatefulWidget {
   final String activePage;
@@ -15,6 +18,11 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
+  late final UserProvider userProvider =
+      Provider.of<UserProvider>(context, listen: false);
+  late final VouchersProvider voucherProvider =
+      Provider.of<VouchersProvider>(context, listen: false);
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -54,7 +62,9 @@ class _BottomBarState extends State<BottomBar> {
           Row(
             children: [
               IconButton(
-                  onPressed: () => context.push('/home'),
+                  onPressed: () {
+                    context.push('/login');
+                  },
                   splashColor: Colors.grey,
                   icon: Icon(Icons.logout_outlined,
                       color: MyAppColors.themeColor)),

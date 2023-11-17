@@ -103,6 +103,7 @@ class SendMoneyFormSnippets {
               confirmBtnColor: MyAppColors.themeColor);
         }
       } catch (e) {
+        print(e);
         setLoading(false);
         QuickAlert.show(
             context: context,

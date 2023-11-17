@@ -50,7 +50,9 @@ class _SentVouchersState extends State<SentVouchers> {
             return vouchers[index];
           });
     } else {
-      return Text('No active sent vouchers available');
+      return Center(
+        child: Text('0 active sent vouchers available'),
+      );
     }
   }
 }

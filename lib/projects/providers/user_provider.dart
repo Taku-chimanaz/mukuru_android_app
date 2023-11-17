@@ -143,7 +143,8 @@ class UserProvider extends ChangeNotifier {
             text: 'User deleted successfully',
             showCancelBtn: false);
         user = null;
-        GoRouter.of(context).go('/login');
+        Future.delayed(
+            Duration(seconds: 2), () => GoRouter.of(context).go('/login'));
       } else {
         setLoading(false);
         QuickAlert.show(

@@ -6,6 +6,7 @@ class MyAppColors {
   static String lighterThemeString = "#F5ab99";
   static String whiteSmokeString = "#F5F5F5";
   static String primaryColorString = "#0B0F1A";
+  static String primaryColorString1 = "#192034";
   static String borderColorString = "#B9B9B9";
 
   static Color themeColor = Color(
@@ -25,4 +26,7 @@ class MyAppColors {
 
   static Color primaryColor = Color(
       int.parse(primaryColorString.substring(1, 7), radix: 16) + 0xFF000000);
+
+  static Color primaryColor1 = Color(
+      int.parse(primaryColorString1.substring(1, 7), radix: 16) + 0xFF000000);
 }
