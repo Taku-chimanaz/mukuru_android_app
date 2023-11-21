@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../snippets/delete_user.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -58,10 +59,8 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   ),
                   TextButton(
                       onPressed: () => {
-                            userProvider.deleteUser(
-                                userProvider.user!['user']['_id'],
-                                setLoading,
-                                context)
+                            deleteUser(
+                                userProvider.user.id, setLoading, context)
                           },
                       child: Text(
                         'Delete',

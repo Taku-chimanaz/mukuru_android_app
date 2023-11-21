@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mukuru_app/app_constants.dart';
+import 'package:mukuru_app/projects/classes/user.dart';
 import 'package:mukuru_app/projects/colors.dart';
 import 'package:quickalert/quickalert.dart';
 
@@ -54,10 +55,10 @@ class SendMoneyFormSnippets {
   // functions
 
   static sendMoney(
-      {required Map<String, dynamic> user,
+      {required User user,
       required Function resetTheFormFields,
       required Function addVoucherToList,
-      required Function updateUserInfo,
+      required Function updateUserBalance,
       required Function setLoading,
       required String recipientEmail,
       required String amount,
@@ -65,12 +66,12 @@ class SendMoneyFormSnippets {
     final Map<String, String> details = {
       "recipient": recipientEmail,
       "amount": amount,
-      "sender": user['_id'],
+      "sender": user.id,
       "voucherType": 'cash'
     };
     final jsonDetails = jsonEncode(details);
     final bool sufficientFunds = haveSufficientFunds(
-        balance: user['balance'], transactionAmount: amount, context: context);
+        balance: user.balance, transactionAmount: amount, context: context);
 
     if (sufficientFunds) {
       setLoading(true);
@@ -90,8 +91,7 @@ class SendMoneyFormSnippets {
               type: QuickAlertType.success,
               text: 'Transaction Completed Successfully!',
               confirmBtnColor: MyAppColors.themeColor);
-          updateUserInfo(userUpdatedInfo: json['user']);
-          print(json['voucher']);
+          updateUserBalance(json['user']['balance'] as double);
           addVoucherToList(voucher: json['voucher']);
         } else {
           setLoading(false);

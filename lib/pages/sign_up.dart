@@ -4,6 +4,7 @@ import 'package:mukuru_app/projects/colors.dart';
 import 'package:mukuru_app/projects/providers/user_provider.dart';
 import 'package:mukuru_app/projects/snippets/SignUpSnippets.dart';
 import 'package:provider/provider.dart';
+import '../projects/snippets/create_user.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -21,7 +22,6 @@ class _SignupState extends State<Signup> {
   final confirmPasswordController = TextEditingController();
   late final UserProvider UserProviderBindingInstance =
       Provider.of<UserProvider>(context, listen: false);
-  late final Function createUser = UserProviderBindingInstance.createUser;
 
   bool showPassword = false;
   bool showConfirmPassword = false;

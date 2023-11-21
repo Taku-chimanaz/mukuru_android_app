@@ -25,7 +25,7 @@ class _SentVouchersState extends State<SentVouchers> {
     super.didChangeDependencies();
     activeSentVouchers = vouchersProvider.vouchers!['vouchers']
         .where((voucher) =>
-            voucher['sender'] == userProvider.user!['user']['_id'] &&
+            voucher['sender'] == userProvider.user.id &&
             voucher['isCashedIn'] == false &&
             voucher['isCancelled'] == false &&
             voucher['isCollected'] == false)

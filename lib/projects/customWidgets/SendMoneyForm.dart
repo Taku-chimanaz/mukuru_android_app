@@ -71,10 +71,10 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
               : 'No email detected.Please ask your recepient to login again into their account');
     } else {
       SendMoneyFormSnippets.sendMoney(
-          user: UserProviderBindingInstance.user!['user'],
+          user: UserProviderBindingInstance.user,
           resetTheFormFields: resetTheFormFields,
           addVoucherToList: VoucherProviderBindingInstance.addVoucherToList,
-          updateUserInfo: UserProviderBindingInstance.updateUserInfo,
+          updateUserBalance: UserProviderBindingInstance.updateUserBalance,
           setLoading: setLoading,
           recipientEmail: qrCodeRes,
           amount: amountTextFieldController.text,
@@ -112,7 +112,7 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                 labelStyle: TextStyle(fontSize: 12.0),
               ),
               validator: (value) => SendMoneyFormSnippets.validateFormRecipient(
-                  value, UserProviderBindingInstance.user!['user']['email']),
+                  value, UserProviderBindingInstance.user.email),
             ),
             SizedBox(
               height: 20,
@@ -137,12 +137,12 @@ class _SendMoneyFormState extends State<SendMoneyForm> {
                       if (_formKey.currentState!.validate())
                         {
                           SendMoneyFormSnippets.sendMoney(
-                              user: UserProviderBindingInstance.user!['user'],
+                              user: UserProviderBindingInstance.user,
                               resetTheFormFields: resetTheFormFields,
                               addVoucherToList: VoucherProviderBindingInstance
                                   .addVoucherToList,
-                              updateUserInfo:
-                                  UserProviderBindingInstance.updateUserInfo,
+                              updateUserBalance:
+                                  UserProviderBindingInstance.updateUserBalance,
                               setLoading: setLoading,
                               recipientEmail: recipientTextFieldController.text,
                               amount: amountTextFieldController.text,

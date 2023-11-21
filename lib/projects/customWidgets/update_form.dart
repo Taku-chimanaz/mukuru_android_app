@@ -31,10 +31,10 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    firstnameController.text = widget.userProvider.user!['user']['firstname'];
-    lastnameController.text = widget.userProvider.user!['user']['surname'];
-    emailController.text = widget.userProvider.user!['user']['email'];
-    mobileController.text = widget.userProvider.user!['user']['phoneNumber'];
+    firstnameController.text = widget.userProvider.user.firstname;
+    lastnameController.text = widget.userProvider.user.surname;
+    emailController.text = widget.userProvider.user.email;
+    mobileController.text = widget.userProvider.user.phoneNumber;
   }
 
   @override
@@ -117,7 +117,7 @@ class _UpdateUserFormState extends State<UpdateUserForm> {
                   ElevatedButton(
                     onPressed: () => {
                       widget.userProvider.updateUser(
-                          widget.userProvider.user!['user']['_id'],
+                          widget.userProvider.user.id,
                           emailController.text,
                           mobileController.text,
                           firstnameController.text,

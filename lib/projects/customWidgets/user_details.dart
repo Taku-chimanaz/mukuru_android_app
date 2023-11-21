@@ -31,13 +31,12 @@ class _UserDetailsState extends State<UserDetails> {
             Row(
               children: [
                 UserName(
-                  firstname: UserProviderBindingInstance.user!['user']
-                      ['firstname'],
-                  surname: UserProviderBindingInstance.user!['user']['surname'],
+                  firstname: UserProviderBindingInstance.user.firstname,
+                  surname: UserProviderBindingInstance.user.surname,
                 ),
                 SizedBox(height: 15),
                 UserFinances(
-                  balance: UserProviderBindingInstance.user!['user']['balance'],
+                  balance: UserProviderBindingInstance.user.balance,
                 )
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +75,7 @@ class _UserFinancesState extends State<UserFinances> {
         builder: (_) {
           return UserDetailsDialog(
               balance: widget.balance,
-              userEmail: UserProviderBindingInstance.user!['user']['email']);
+              userEmail: UserProviderBindingInstance.user.email);
         });
   }
 

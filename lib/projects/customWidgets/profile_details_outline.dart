@@ -46,7 +46,7 @@ class ProfileOutline extends StatelessWidget {
                 children: [
                   Text('Name: ', style: TextStyle(color: Colors.white)),
                   Text(
-                    '${user.user!['user']['firstname']} ${user.user!['user']['surname']}',
+                    '${user.user.firstname} ${user.user.surname}',
                     style: TextStyle(color: Colors.white),
                   )
                 ],
@@ -59,7 +59,7 @@ class ProfileOutline extends StatelessWidget {
                 children: [
                   Text('Email: ', style: TextStyle(color: Colors.white)),
                   Text(
-                    '${user.user!['user']['email']}',
+                    '${user.user.email}',
                     style: TextStyle(color: Colors.white),
                   )
                 ],
@@ -72,8 +72,8 @@ class ProfileOutline extends StatelessWidget {
                 children: [
                   Text('Nationality: ', style: TextStyle(color: Colors.white)),
                   Text(
-                    user.user!['user']['nationality'] != ''
-                        ? '${user.user!['user']['nationality']}'
+                    user.user.nationality != ''
+                        ? '${user.user.nationality}'
                         : 'N/A',
                     style: TextStyle(color: Colors.white),
                   )
@@ -87,8 +87,8 @@ class ProfileOutline extends StatelessWidget {
                 children: [
                   Text('Phone Number: ', style: TextStyle(color: Colors.white)),
                   Text(
-                    user.user!['user']['phoneNumber'] != ''
-                        ? '${user.user!['user']['phoneNumber']}'
+                    user.user.phoneNumber != ''
+                        ? '${user.user.phoneNumber}'
                         : 'N/A',
                     style: TextStyle(color: Colors.white),
                   )
