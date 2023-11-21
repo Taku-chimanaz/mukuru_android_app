@@ -81,7 +81,7 @@ class _SendGroceriesFormState extends State<SendGroceriesForm> {
                 labelStyle: TextStyle(fontSize: 12.0),
               ),
               validator: (value) => SendMoneyFormSnippets.validateFormRecipient(
-                  value, UserProviderBindingInstance.user!.email),
+                  value, UserProviderBindingInstance.user.email),
             ),
             SizedBox(
               height: 20,

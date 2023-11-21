@@ -26,7 +26,7 @@ class _UncollectedVouchersState extends State<UncollectedVouchers> {
     super.didChangeDependencies();
     activeSentVouchers = vouchersProvider.vouchers!['vouchers']
         .where((voucher) =>
-            voucher['recipient'] == userProvider.user!.id &&
+            voucher['recipient'] == userProvider.user.id &&
             voucher['isCashedIn'] == false &&
             voucher['isCancelled'] == false &&
             voucher['isCollected'] == false)
