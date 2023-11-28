@@ -29,7 +29,7 @@ class VouchersProvider extends ChangeNotifier {
       {required String voucherID,
       required BuildContext context,
       required userID,
-      required Function updateUserInfo}) async {
+      required Function updateUserBalance}) async {
     try {
       final revokeVoucherReq = await http.put(
           Uri.parse(MyAppConstants.apiUrl +
@@ -41,9 +41,13 @@ class VouchersProvider extends ChangeNotifier {
 
       if (revokeVoucherReq.statusCode == 200) {
         if (responseJson['user'] != null) {
-          updateUserInfo(userUpdatedInfo: responseJson['user']);
+          updateUserBalance(responseJson['user']['balance'] as double);
         }
-        updateVouchers(newVouchers: responseJson['vouchers']);
+
+        final List filteredVouchers = vouchers!['vouchers']
+            .where((voucher) => voucher['_id'] != voucherID)
+            .toList();
+        updateVouchers(newVouchers: filteredVouchers);
         QuickAlert.show(
             context: context,
             type: QuickAlertType.success,
@@ -55,6 +59,7 @@ class VouchersProvider extends ChangeNotifier {
             text: 'Internal server error occured,try again');
       }
     } catch (e) {
+      print(e);
       QuickAlert.show(
           context: context,
           type: QuickAlertType.error,
@@ -66,7 +71,7 @@ class VouchersProvider extends ChangeNotifier {
       {required String userID,
       required String voucherID,
       required BuildContext context,
-      required Function updateUserInfo,
+      required Function updateUserBalance,
       required Function setIsCashingIn}) async {
     try {
       setIsCashingIn(true);
@@ -79,7 +84,7 @@ class VouchersProvider extends ChangeNotifier {
 
       if (cashInReq.statusCode == 200) {
         setIsCashingIn(false);
-        updateUserInfo(userUpdatedInfo: decodedJson['user']);
+        updateUserBalance(decodedJson['user']['balance'] as double);
         final List filteredVouchers = vouchers!['vouchers']
             .where((voucher) => voucher['_id'] != voucherID)
             .toList();

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (bindingInstance.user == null) {
+      if (bindingInstance.user.id == '0') {
         Future.delayed(Duration(seconds: 2), () => context.go('/login'));
       } else {
         Future.delayed(Duration(seconds: 2), () => context.go('/load-data'));

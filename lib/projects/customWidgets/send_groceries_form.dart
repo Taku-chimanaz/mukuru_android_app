@@ -81,7 +81,7 @@ class _SendGroceriesFormState extends State<SendGroceriesForm> {
                 labelStyle: TextStyle(fontSize: 12.0),
               ),
               validator: (value) => SendMoneyFormSnippets.validateFormRecipient(
-                  value, UserProviderBindingInstance.user!['user']['email']),
+                  value, UserProviderBindingInstance.user.email),
             ),
             SizedBox(
               height: 20,
@@ -113,12 +113,12 @@ class _SendGroceriesFormState extends State<SendGroceriesForm> {
                       if (_formKey.currentState!.validate())
                         {
                           SendGroceriesSnippets.sendGroceries(
-                              user: UserProviderBindingInstance.user!['user'],
+                              user: UserProviderBindingInstance.user,
                               resetTheFormFields: resetTheFormFields,
                               addVoucherToList: VoucherProviderBindingInstance
                                   .addVoucherToList,
-                              updateUserInfo:
-                                  UserProviderBindingInstance.updateUserInfo,
+                              updateUserBalance:
+                                  UserProviderBindingInstance.updateUserBalance,
                               setLoading: setLoading,
                               recipientEmail: recipientTextFieldController.text,
                               amount: selectedVoucher.split('\$')[1],

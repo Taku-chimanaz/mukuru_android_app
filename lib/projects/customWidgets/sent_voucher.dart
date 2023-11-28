@@ -25,7 +25,7 @@ class _SentVouchersState extends State<SentVouchers> {
     super.didChangeDependencies();
     activeSentVouchers = vouchersProvider.vouchers!['vouchers']
         .where((voucher) =>
-            voucher['sender'] == userProvider.user!['user']['_id'] &&
+            voucher['sender'] == userProvider.user.id &&
             voucher['isCashedIn'] == false &&
             voucher['isCancelled'] == false &&
             voucher['isCollected'] == false)
@@ -50,7 +50,9 @@ class _SentVouchersState extends State<SentVouchers> {
             return vouchers[index];
           });
     } else {
-      return Text('No active sent vouchers available');
+      return Center(
+        child: Text('0 active sent vouchers available'),
+      );
     }
   }
 }

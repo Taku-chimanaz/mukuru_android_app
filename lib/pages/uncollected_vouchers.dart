@@ -26,7 +26,7 @@ class _UncollectedVouchersState extends State<UncollectedVouchers> {
     super.didChangeDependencies();
     activeSentVouchers = vouchersProvider.vouchers!['vouchers']
         .where((voucher) =>
-            voucher['recipient'] == userProvider.user!['user']['_id'] &&
+            voucher['recipient'] == userProvider.user.id &&
             voucher['isCashedIn'] == false &&
             voucher['isCancelled'] == false &&
             voucher['isCollected'] == false)
@@ -49,6 +49,7 @@ class _UncollectedVouchersState extends State<UncollectedVouchers> {
           child: Column(
         children: [
           Container(
+            alignment: Alignment.topLeft,
             margin: EdgeInsets.fromLTRB(20.0, 18.0, 0, 10.0),
             child: Text(
               'Uncollected Vouchers',
@@ -63,7 +64,10 @@ class _UncollectedVouchersState extends State<UncollectedVouchers> {
                         return vouchers[index];
                       }),
                 )
-              : Text('No active vouchers to be collected')
+              : Expanded(
+                  child: Center(
+                  child: Text('No active vouchers to be collected'),
+                ))
         ],
       )),
       bottomNavigationBar: BottomBar(activePage: 'Vouchers'),

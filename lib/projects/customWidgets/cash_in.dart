@@ -33,10 +33,10 @@ class _CashInVoucherState extends State<CashInVoucher> {
       onPressed: !isCashingIn
           ? () => {
                 voucherProvider.cashInVoucher(
-                    userID: userProvider.user!['user']['_id'],
+                    userID: userProvider.user.id,
                     voucherID: widget.voucherID,
                     context: context,
-                    updateUserInfo: userProvider.updateUserInfo,
+                    updateUserBalance: userProvider.updateUserBalance,
                     setIsCashingIn: setIsCashingIn)
               }
           : null,
